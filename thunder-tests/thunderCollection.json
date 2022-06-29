@@ -1,0 +1,17 @@
+[
+  {
+    "_id": "7d9326f5-b900-4f1f-a706-acbf35d44034",
+    "colName": "Project Store Manager",
+    "created": "2022-06-29T23:26:27.520Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "d114423f-f150-479f-83e0-b1be04320470",
+        "name": "Products",
+        "containerId": "",
+        "created": "2022-06-29T23:26:58.565Z",
+        "sortNum": 10000
+      }
+    ]
+  }
+]

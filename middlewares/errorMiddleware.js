@@ -3,7 +3,7 @@ const errorHandler = (err, _req, res, _next) => {
 
   switch (name) {
     case 'ValidationError':
-      res.status(400).json({ message });
+      res.status(404).json({ message });
       break;
     case 'productNotFoundError':
       res.status(404).json({ message });
