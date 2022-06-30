@@ -11,7 +11,7 @@ const productsService = {
   validateBody: validateSchema(Joi.object({
     name: Joi.string().max(30).min(5).required(),
   }).messages({
-    "string.empty": '"name" is required',
+    'string.empty': '"name" is required',
   })),
 
   async checkIfExists(id) {

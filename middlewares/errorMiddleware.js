@@ -1,15 +1,7 @@
-const errorHandler = ({ name, message }, _req, res, _next) => {
-  let code = 0;
+const { errorCode } = require('../services/helpers');
 
-  switch (message) {
-    case '"name" length must be at least 5 characters long':
-      code = 422;
-      break;
-    case 'Product not found':
-      code = 404;
-      break;
-    default: code = 400
-  }
+const errorHandler = ({ name, message }, _req, res, _next) => {
+  const code = errorCode(message);
 
   switch (name) {
     case 'ValidationError':
