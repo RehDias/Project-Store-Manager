@@ -8,7 +8,7 @@ const { expect } = chai;
 const productsModel = require('../../../models/productsModel');
 const connect = require('../../../models/connection');
 
-describe('Testa o productsModel', () => {
+describe('Testa o arquivo productsModel', () => {
   beforeEach(sinon.restore);
 
   describe('Testa a função listAll', () => {

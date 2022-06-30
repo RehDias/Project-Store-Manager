@@ -5,10 +5,7 @@ const { validateSchema } = require('./helpers');
 
 const productsService = {
   validateId: validateSchema(Joi.object({
-    id: Joi.number().integer().positive().messages({
-      'number.base': 'Product not found', 
-    }),
-  }).required()),
+    id: Joi.number().integer().positive() }).required()),
 
   async checkIfExists(id) {
     const exist = await productsModel.exists(id);
