@@ -51,4 +51,16 @@ describe('Testa o arquivo productsModel', () => {
       expect(productsModel.exists(1)).to.eventually.be.true;
     });
   });
+
+  describe('Testa a função add', () => {
+    it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
+      sinon.stub(connect, 'query').rejects();
+      expect(productsModel.add({})).to.eventually.be.rejected;
+    });
+
+    it('A função deve retornar o id caso sucesso ao adicionar novo produto', () => {
+      sinon.stub(connect, 'query').resolves([{ insertId: 5 }]);
+      expect(productsModel.add({})).to.eventually.equal(5);
+    });
+  });
 });

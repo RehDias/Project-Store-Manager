@@ -18,11 +18,11 @@
     "colId": "7d9326f5-b900-4f1f-a706-acbf35d44034",
     "containerId": "d114423f-f150-479f-83e0-b1be04320470",
     "name": "getById",
-    "url": "localhost:3000/products/1",
+    "url": "localhost:3000/products/25",
     "method": "GET",
     "sortNum": 30000,
     "created": "2022-06-29T23:27:13.265Z",
-    "modified": "2022-06-30T17:18:43.380Z",
+    "modified": "2022-06-30T23:12:41.036Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -36,12 +36,12 @@
     "method": "POST",
     "sortNum": 40000,
     "created": "2022-06-30T21:29:07.711Z",
-    "modified": "2022-06-30T21:29:49.274Z",
+    "modified": "2022-06-30T23:11:58.766Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"produtoA\"\n}",
+      "raw": "{\n    \"name\": \"\"\n}",
       "form": []
     },
     "tests": []

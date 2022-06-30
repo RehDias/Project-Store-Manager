@@ -60,4 +60,34 @@ describe('Testa o arquivo productsControllers', () => {
       expect(res.json.getCall(0).args[0]).to.deep.equal({ "id": 1, "name": "Martelo de Thor" });
     });
   });
+
+  describe('Testa a função add', () => {
+    it('A função deve disparar um erro caso a função validateBody do productsService dispare', () => {
+      sinon.stub(productsService, 'validateBody').rejects();
+      expect(productsController.add({}, {})).to.eventually.be.rejected;
+    });
+    it('A função deve disparar um erro caso a função add do productsService dispare', () => {
+      sinon.stub(productsService, 'validateBody').resolves();
+      sinon.stub(productsService, 'add').rejects();
+      expect(productsController.add({}, {})).to.eventually.be.rejected;
+    });
+
+    it('A função deve disparar um erro caso a função get do productsService dispare', () => {
+      sinon.stub(productsService, 'validateBody').resolves();
+      sinon.stub(productsService, 'add').resolves(1);
+      sinon.stub(productsService, 'get').rejects();
+      expect(productsController.add({}, {})).to.eventually.be.rejected;
+    });
+
+    it('A função deve retornar o status 200 e o json com um produto', async () => {
+      const res = response();
+
+      sinon.stub(productsService, 'validateBody').resolves({ "name": "produtoB" });
+      sinon.stub(productsService, 'add').resolves(1);
+      sinon.stub(productsService, 'get').resolves({ "id": 1, "name": "produtoB" });
+      await productsController.add({}, res);
+      expect(res.status.getCall(0).args[0]).to.equal(201);
+      expect(res.json.getCall(0).args[0]).to.deep.equal({ "id": 1, "name": "produtoB" });
+    });
+  });
  });

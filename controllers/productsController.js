@@ -14,8 +14,8 @@ const productsController = {
   },
 
   async add(req, res) {
-    const body = await productsService.validateBody(req.body);
-    const id = await productsService.add(body);
+    const data = await productsService.validateBody(req.body);
+    const id = await productsService.add(data);
     const product = await productsService.get(id);
     res.status(201).json(product);
   }

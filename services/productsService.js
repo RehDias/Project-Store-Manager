@@ -9,8 +9,10 @@ const productsService = {
   }).required()),
   
   validateBody: validateSchema(Joi.object({
-    name: Joi.string().max(30),
-  }).required()),
+    name: Joi.string().max(30).min(5).required(),
+  }).messages({
+    "string.empty": '"name" is required',
+  })),
 
   async checkIfExists(id) {
     const exist = await productsModel.exists(id);

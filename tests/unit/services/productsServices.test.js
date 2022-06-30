@@ -52,4 +52,16 @@ describe('Testa o arquivo productsServices', () => {
       expect(productsService.get(1)).to.eventually.deep.equal([{}]);
     });
   });
+
+  describe('Testa a função add', () => {
+    it('A função deve disparar um erro caso o productsModel dispare um erro', () => {
+      sinon.stub(productsModel, 'add').rejects();
+      expect(productsService.add({})).to.eventually.be.rejected;
+    });
+
+    it('A função deve retornar o id inserido caso o productsModel dê certo', () => {
+      sinon.stub(productsModel, 'add').resolves(2);
+      expect(productsService.add({})).to.eventually.equal(2);
+    });
+  });
 });
