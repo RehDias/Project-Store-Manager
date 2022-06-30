@@ -12,7 +12,7 @@ describe('Testa o productsModel', () => {
   beforeEach(sinon.restore);
 
   describe('Testa a função listAll', () => {
-    it('A função deve disparar um erro caso o banco de dados dispara um erro', () => {
+    it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
       sinon.stub(connect, 'query').rejects();
       expect(productsModel.listAll()).to.eventually.be.rejected;
     });
@@ -29,7 +29,7 @@ describe('Testa o productsModel', () => {
   });
 
   describe('Testa a função get', () => {
-    it('A função deve disparar um erro caso o banco de dados dispara um erro', () => {
+    it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
       sinon.stub(connect, 'query').rejects();
       expect(productsModel.get(6)).to.eventually.be.rejected;
     });
@@ -37,6 +37,18 @@ describe('Testa o productsModel', () => {
     it('A função deve retornar um item caso o passe um id válido', () => {
       sinon.stub(connect, 'query').resolves([{ "id": 1, "name": "Martelo de Thor" }]);
       expect(productsModel.get(1)).to.eventually.deep.equal([{ "id": 1, "name": "Martelo de Thor" }]);
+    });
+  });
+
+  describe('Testa a função exists', () => {
+    it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
+      sinon.stub(connect, 'query').rejects();
+      expect(productsModel.exists(6)).to.eventually.be.rejected;
+    });
+
+    it('A função deve retornar um booleano', () => {
+      sinon.stub(connect, 'query').resolves(true);
+      expect(productsModel.exists(1)).to.eventually.be.true;
     });
   });
 });
