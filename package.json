@@ -14,7 +14,8 @@
     "debug": "nodemon --ignore coverage index.js",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js, .jsx",
     "migration": "node -e \"require('./__tests__/_utils').runMigration()\"",
-    "seed": "node -e \"require('./__tests__/_utils').runSeed()\""
+    "seed": "node -e \"require('./__tests__/_utils').runSeed()\"",
+    "t": "mocha tests/unit/**/*.js --exit"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
   },
   "devDependencies": {
     "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
     "eslint-config-trybe-backend": "^1.0.4",
     "express-async-errors": "^3.1.1",
     "frisby": "^2.1.2",

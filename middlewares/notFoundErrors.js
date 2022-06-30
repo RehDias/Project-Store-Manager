@@ -1,15 +1,8 @@
-class productNotFoundError extends Error {
+class NotFoundError extends Error {
   constructor(message) {
     super(message);
-    this.name = 'productNotFoundError';
-  };
-};
+    this.name = 'NotFoundError';
+  }
+}
 
-class salesNotFoundError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'salesNotFoundError';
-  };
-};
-
-module.exports = { productNotFoundError, salesNotFoundError };
+module.exports = NotFoundError;

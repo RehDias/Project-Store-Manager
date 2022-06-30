@@ -1,6 +1,6 @@
-const runSchema = (schema) => async (data) => {
+const validateSchema = (schema) => async (data) => {
   const result = await schema.validateAsync(data);
   return result;
 };
 
-module.exports = { runSchema };
+module.exports = { validateSchema };

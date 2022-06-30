@@ -4,11 +4,11 @@
     "colId": "7d9326f5-b900-4f1f-a706-acbf35d44034",
     "containerId": "d114423f-f150-479f-83e0-b1be04320470",
     "name": "listAll",
-    "url": "localhost:3000/products/6",
+    "url": "localhost:3000/products",
     "method": "GET",
     "sortNum": 20000,
     "created": "2022-06-29T23:27:05.979Z",
-    "modified": "2022-06-29T23:38:12.384Z",
+    "modified": "2022-06-29T23:41:04.053Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -18,11 +18,13 @@
     "colId": "7d9326f5-b900-4f1f-a706-acbf35d44034",
     "containerId": "d114423f-f150-479f-83e0-b1be04320470",
     "name": "getProduct",
-    "url": "",
+    "url": "localhost:3000/products/1",
     "method": "GET",
     "sortNum": 30000,
     "created": "2022-06-29T23:27:13.265Z",
-    "modified": "2022-06-29T23:27:13.265Z",
-    "headers": []
+    "modified": "2022-06-29T23:41:42.613Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

@@ -5,9 +5,9 @@ const errorHandler = (err, _req, res, _next) => {
     case 'ValidationError':
       res.status(404).json({ message });
       break;
-    case 'productNotFoundError':
-      res.status(404).json({ message });
-      break;
+    // case 'NotFoundError':
+    //   res.status(404).json({ message });
+    //   break;
     default:
       res.status(500).json({ message });
   }
