@@ -5,7 +5,12 @@ const { validateSchema } = require('./helpers');
 
 const productsService = {
   validateId: validateSchema(Joi.object({
-    id: Joi.number().integer().positive() }).required()),
+    id: Joi.number().integer().positive(),
+  }).required()),
+  
+  validateBody: validateSchema(Joi.object({
+    name: Joi.string().max(30),
+  }).required()),
 
   async checkIfExists(id) {
     const exist = await productsModel.exists(id);
@@ -20,6 +25,11 @@ const productsService = {
   async get(id) {
     const product = await productsModel.get(id);
     return product;
+  },
+
+  async add(body) {
+    const id = await productsModel.add(body);
+    return id;
   },
 };
 

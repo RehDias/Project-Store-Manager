@@ -1,9 +1,7 @@
-const errorHandler = (err, _req, res, _next) => {
-  const { name, message } = err;
-
+const errorHandler = ({ name, message }, _req, res, _next) => {
   switch (name) {
     case 'ValidationError':
-      res.status(404).json({ message });
+      res.status(400).json({ message });
       break;
     case 'NotFoundError':
       res.status(404).json({ message });

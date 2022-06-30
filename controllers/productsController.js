@@ -12,6 +12,13 @@ const productsController = {
     const product = await productsService.get(id);
     res.status(200).json(product);
   },
+
+  async add(req, res) {
+    const body = await productsService.validateBody(req.body);
+    const id = await productsService.add(body);
+    const product = await productsService.get(id);
+    res.status(201).json(product);
+  }
 };
 
 module.exports = productsController;

@@ -18,6 +18,12 @@ const productsModel = {
     const [[product]] = await connect.query(sqlQuery, [id]);
     return !!product;
   },
+
+  async add(body) {
+    const sqlQuery = 'INSERT INTO StoreManager.products (name) VALUES (?)';
+    const [{ insertId }] = await connect.query(sqlQuery, [body.name]);
+    return insertId;
+  },
 };
 
 module.exports = productsModel;
