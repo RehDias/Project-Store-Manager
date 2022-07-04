@@ -90,4 +90,44 @@ describe('Testa o arquivo productsControllers', () => {
       expect(res.json.getCall(0).args[0]).to.deep.equal({ "id": 1, "name": "produtoB" });
     });
   });
+
+  describe('Testa a função edit', () => {
+    it('A função deve disparar um erro caso a função validateId dispare', () => {
+      sinon.stub(productsService, 'validateId').rejects();
+      expect(productsController.edit({}, {})).to.eventually.be.rejected;
+    });
+
+    it('A função deve dispara um erro caso a função validateBody dispare', () => {
+      sinon.stub(productsService, 'validateId').resolves();
+      sinon.stub(productsService, 'validateBody').rejects();
+      expect(productsController.edit({}, {})).to.eventually.be.rejected;
+    });
+
+    it('A função deve dispara um erro caso a função checkIfExists dispare', () => {
+      sinon.stub(productsService, 'validateId').resolves();
+      sinon.stub(productsService, 'validateBody').resolves();
+      sinon.stub(productsService, 'checkIfExists').rejects();
+      expect(productsController.edit({}, {})).to.eventually.be.rejected;
+    });
+
+    it('A função deve dispara um erro caso a função edit dispare', () => {
+      sinon.stub(productsService, 'validateId').resolves();
+      sinon.stub(productsService, 'validateBody').resolves();
+      sinon.stub(productsService, 'checkIfExists').resolves();
+      sinon.stub(productsService, 'edit').rejects();
+      expect(productsController.edit({}, {})).to.eventually.be.rejected;
+    });
+
+    it('A função deve o status 200 e o json com id e nome alterado', async () => {
+      const res = response();
+
+      sinon.stub(productsService, 'validateId').resolves({ id: 1 });
+      sinon.stub(productsService, 'validateBody').resolves({ name: 'Martelo do Batman' });
+      sinon.stub(productsService, 'checkIfExists').resolves(true);
+      sinon.stub(productsService, 'edit').resolves({ id: 1, name: 'Martelo do Batman' });
+      await productsController.edit({ name: 'Martelo do Batman' }, res);
+      expect(res.status.getCall(0).args[0]).to.equal(200);
+      expect(res.json.getCall(0).args[0]).to.deep.equal({ id: 1, name: 'Martelo do Batman' });
+    });
+  });
  });

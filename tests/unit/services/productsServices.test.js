@@ -64,4 +64,16 @@ describe('Testa o arquivo productsServices', () => {
       expect(productsService.add({})).to.eventually.equal(2);
     });
   });
+
+  describe('Testa a função edit', () => {
+    it('A função deve disparar um erro caso o productsModel dispare um erro', () => {
+      sinon.stub(productsModel, 'edit').rejects();
+      expect(productsService.edit({})).to.eventually.be.rejected;
+    });
+
+    it('A função altera no banco de dados se o productsModel dê certo', () => {
+      sinon.stub(productsModel, 'edit').resolves();
+      expect(productsModel.edit({})).to.eventually.be.undefined;
+    });
+  });
 });
