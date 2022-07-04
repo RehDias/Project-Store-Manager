@@ -76,4 +76,16 @@ describe('Testa o arquivo productsServices', () => {
       expect(productsModel.edit({})).to.eventually.be.undefined;
     });
   });
+
+  describe('Testa a função remove', () => {
+    it('A função deve disparar um erro caso a função productsModel.remove dispare', () => {
+      sinon.stub(productsModel, 'remove').rejects();
+      expect(productsService.remove(0)).to.eventually.be.rejected;
+    });
+
+    it('A função remove o produto do banco de dados se tudo dê certo', () => {
+      sinon.stub(productsModel, 'remove').resolves();
+      expect(productsService.remove(1)).to.eventually.be.ok;
+    });
+  });
 });

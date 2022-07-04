@@ -130,4 +130,34 @@ describe('Testa o arquivo productsControllers', () => {
       expect(res.json.getCall(0).args[0]).to.deep.equal({ id: 1, name: 'Martelo do Batman' });
     });
   });
+
+  describe('Testa a função remove', () => {
+    it('A função deve disparar um erro caso a função validateId dispare', () => {
+      sinon.stub(productsService, 'validateId').rejects();
+      expect(productsController.remove(0)).to.eventually.be.rejected;
+    });
+
+    it('A função deve dispara um erro caso a função checkIfExists dispare', () => {
+      sinon.stub(productsService, 'validateId').resolves();
+      sinon.stub(productsService, 'checkIfExists').rejects();
+      expect(productsController.edit(0)).to.eventually.be.rejected;
+    });
+
+    it('A função deve dispara um erro caso a função productsService.remove dispare', () => {
+      sinon.stub(productsService, 'validateId').resolves();
+      sinon.stub(productsService, 'checkIfExists').resolves();
+      sinon.stub(productsService, 'remove').rejects();
+      expect(productsController.edit(0)).to.eventually.be.rejected;
+    });
+
+    it('A função deve retornar o status 204', async () => {
+      const res = response();
+
+      sinon.stub(productsService, 'validateId').resolves({ id: 1 });
+      sinon.stub(productsService, 'checkIfExists').resolves(true);
+      sinon.stub(productsService, 'remove').resolves({ id: 1 });
+      await productsController.remove(1, res);
+      expect(res.sendStatus.getCall(0).args[0]).to.equal(204);
+    });
+  });
  });

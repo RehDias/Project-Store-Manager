@@ -75,4 +75,16 @@ describe('Testa o arquivo productsModel', () => {
       expect(productsModel.edit({})).to.eventually.be.undefined;
     });
   });
+
+  describe('Testa a função remove', () => {
+    it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
+      sinon.stub(connect, 'query').rejects();
+      expect(productsModel.remove(0)).to.eventually.be.rejected;
+    });
+
+    it('A função remove o produto do banco de dados se tudo dê certo', () => {
+      sinon.stub(connect, 'query').resolves();
+      expect(productsModel.remove(1)).to.eventually.be.ok;
+    });
+  });
 });
