@@ -27,7 +27,7 @@ const salesModel = {
     return !!product;
   },
 
-  async listaAll() {
+  async listAll() {
     const sqlQuery = `SELECT sp.sale_id AS saleId, s.date, sp.product_id AS productId, sp.quantity
     FROM StoreManager.sales_products AS sp
     INNER JOIN StoreManager.sales AS s ON s.id = sp.sale_id

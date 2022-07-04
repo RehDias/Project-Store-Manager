@@ -28,8 +28,8 @@ const salesService = {
     if (!exist) throw new NotFoundError('Product not found');
   },
 
-  async listaAll() {
-    const sales = await salesModel.listaAll();
+  async listAll() {
+    const sales = await salesModel.listAll();
     return sales;
   },
 

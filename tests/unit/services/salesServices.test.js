@@ -51,4 +51,45 @@ describe('Testa o arquivo salesService', () => {
       expect(salesService.checkIfProductIdExists(1)).to.eventually.be.undefined;
     });
   });
+
+  describe('Testa a função listAll', () => {
+    it('A função deve disparar um erro caso o salesModel dispare um erro', () => {
+      sinon.stub(salesModel, 'listAll').rejects();
+      expect(salesService.listAll()).to.eventually.be.rejected;
+    });
+
+    it('A função deve retornar uma lista de produtos vendidos caso o salesModel dê certo', () => {
+      sinon.stub(salesModel, 'listAll').resolves([{}, {}]);
+      expect(salesService.listAll()).to.eventually.deep.equal([{}, {}]);
+    });
+  });
+
+  describe('Testa a função getSalesById', () => {
+    it('A função deve disparar um erro caso o salesModel dispare um erro', () => {
+      sinon.stub(salesModel, 'getSalesById').rejects();
+      expect(salesService.getSalesById(0)).to.eventually.be.rejected;
+    });
+
+    it('A função deve retornar os produtos vendidos caso o salesModel dê certo', () => {
+      sinon.stub(salesModel, 'getSalesById').resolves([{}]);
+      expect(salesService.getSalesById(1)).to.eventually.deep.equal([{}]);
+    });
+  });
+
+  describe('Testa a função checkIfSalesExists', () => {
+    it('A função deve disparar um erro caso o salesModel dispare um erro', () => {
+      sinon.stub(salesModel, 'salesExists').rejects();
+      expect(salesService.checkIfSalesExists(1)).to.eventually.be.rejected;
+    });
+
+    it('A função deve disparar um erro NotFoundError caso o salesModel retorne false', () => {
+      sinon.stub(salesModel, 'salesExists').resolves(false);
+      expect(salesService.checkIfSalesExists(0)).to.eventually.be.rejectedWith(NotFoundError);
+    });
+
+    it('A função deve resolver caso o salesModel retorne true', () => {
+      sinon.stub(salesModel, 'salesExists').resolves(true);
+      expect(salesService.checkIfSalesExists(1)).to.eventually.be.undefined;
+    });
+  });
 });

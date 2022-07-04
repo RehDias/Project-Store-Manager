@@ -63,4 +63,77 @@ describe('Testa o arquivo salesController', () => {
       expect(res.json.getCall(0).args[0]).to.deep.equal(finalresponse);
     });
   });
+
+  describe('Testa a função listAll', () => {
+    it('A função deve disparar um erro caso a função listAll do salesService dispare', () => {
+      sinon.stub(salesService, 'listAll').rejects();
+      expect(salesController.listAll()).to.eventually.be.rejected;
+    });
+
+    it('A função deve retornar o status 200 e o json com a lista de produtos vendidos', async () => {
+      const res = response();
+
+      const sales = [
+        {
+          "saleId": 1,
+          "date": "2021-09-09T04:54:29.000Z",
+          "productId": 1,
+          "quantity": 2
+        },
+        {
+          "saleId": 1,
+          "date": "2021-09-09T04:54:54.000Z",
+          "productId": 2,
+          "quantity": 2
+        }];
+
+      sinon.stub(salesService, 'listAll').resolves(sales);
+      await salesController.listAll({}, res);
+      expect(res.status.getCall(0).args[0]).to.equal(200);
+      expect(res.json.getCall(0).args[0]).to.deep.equal(sales);
+    });
+  });
+
+  describe('Testa a função getSalesById', () => {
+    it('A função deve disparar um erro caso a função validId do salesService dispare', () => {
+      sinon.stub(salesService, 'validateId').rejects();
+      expect(salesController.getSalesById(0)).to.eventually.be.rejected;
+    });
+
+    it('A função deve disparar um erro caso a função checkIfSalesExists do salesService dispare', () => {
+      sinon.stub(salesService, 'validateId').resolves();
+      sinon.stub(salesService, 'checkIfSalesExists').rejects();
+      expect(salesController.getSalesById(0)).to.eventually.be.rejected;
+    });
+
+    it('A função deve disparar um erro caso a função getSalesById do salesService dispare', () => {
+      sinon.stub(salesService, 'validateId').resolves();
+      sinon.stub(salesService, 'checkIfSalesExists').resolves(true);
+      sinon.stub(salesService, 'getSalesById').rejects();
+      expect(salesController.getSalesById(0)).to.eventually.be.rejected;
+    });
+
+    it('A função deve retornar o status 200 e o json com os produtos vendidos', async () => {
+      const res = response();
+
+      const sales = [
+        {
+          "date": "2021-09-09T04:54:29.000Z",
+          "productId": 1,
+          "quantity": 2
+        },
+        {
+          "date": "2021-09-09T04:54:54.000Z",
+          "productId": 2,
+          "quantity": 2
+        }];
+
+      sinon.stub(salesService, 'validateId').resolves({ id: 1 });
+      sinon.stub(salesService, 'checkIfSalesExists').resolves(true);
+      sinon.stub(salesService, 'getSalesById').resolves(sales);
+      await salesController.getSalesById(1, res);
+      expect(res.status.getCall(0).args[0]).to.equal(200);
+      expect(res.json.getCall(0).args[0]).to.deep.equal(sales);
+    });
+  });
 });

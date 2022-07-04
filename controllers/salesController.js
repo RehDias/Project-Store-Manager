@@ -3,7 +3,8 @@ const salesService = require('../services/salesService');
 const salesController = {
   async add(req, res) {
     const validated = await salesService.validateItems(req.body);
-    await Promise.all(validated.map(({ productId }) => salesService.checkIfProductIdExists(productId)));
+    await Promise.all(validated
+      .map(({ productId }) => salesService.checkIfProductIdExists(productId)));
     const { items, id } = await salesService.add(validated);
     const response = {
       id,
@@ -13,7 +14,7 @@ const salesController = {
   },
 
   async listAll(_req, res) {
-    const sales = await salesService.listaAll();
+    const sales = await salesService.listAll();
     res.status(200).json(sales);
   },
 
