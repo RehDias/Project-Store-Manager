@@ -14,7 +14,7 @@ const productsModel = {
   },
 
   async exists(id) {
-    const sqlQuery = 'SELECT name FROM StoreManager.products WHERE id = ?;';
+    const sqlQuery = 'SELECT 1 FROM StoreManager.products WHERE id = ?;';
     const [[product]] = await connect.query(sqlQuery, [id]);
     return !!product;
   },
@@ -23,6 +23,11 @@ const productsModel = {
     const sqlQuery = 'INSERT INTO StoreManager.products (name) VALUES (?)';
     const [{ insertId }] = await connect.query(sqlQuery, [body.name]);
     return insertId;
+  },
+
+  async edit(id, body) {
+    const sqlQuery = 'UPDATE StoreManager.products SET ? WHERE id = ?;';
+    await connect.query(sqlQuery, [body, id]);
   },
 };
 
