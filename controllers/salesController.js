@@ -24,6 +24,13 @@ const salesController = {
     const sales = await salesService.getSalesById(id);
     res.status(200).json(sales);
   },
+
+  async remove(req, res) {
+    const { id } = await salesService.validateId(req.params);
+    await salesService.checkIfSalesExists(id);
+    await salesService.remove(id);
+    res.sendStatus(204);
+  },
 };
 
 module.exports = salesController;

@@ -3,6 +3,8 @@ const salesController = require('../controllers/salesController');
 
 const salesRoute = Router();
 
+salesRoute.delete('/:id', salesController.remove);
+
 salesRoute.get('/:id', salesController.getSalesById);
 
 salesRoute.get('/', salesController.listAll);
