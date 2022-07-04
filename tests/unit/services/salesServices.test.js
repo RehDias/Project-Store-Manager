@@ -35,20 +35,20 @@ describe('Testa o arquivo salesService', () => {
     });
   });
 
-  describe('Testa a função checkIfExists', () => {
+  describe('Testa a função checkIfProductIdExists', () => {
     it('A função deve disparar um erro caso o salesModel dispare um erro', () => {
       sinon.stub(salesModel, 'productIdExists').rejects();
-      expect(salesService.checkIfExists(1)).to.eventually.be.rejected;
+      expect(salesService.checkIfProductIdExists(1)).to.eventually.be.rejected;
     });
 
     it('A função deve disparar um erro NotFoundError caso o salesModel retorne false', () => {
       sinon.stub(salesModel, 'productIdExists').resolves(false);
-      expect(salesService.checkIfExists(6)).to.eventually.be.rejectedWith(NotFoundError);
+      expect(salesService.checkIfProductIdExists(6)).to.eventually.be.rejectedWith(NotFoundError);
     });
 
     it('A função deve resolver caso o salesModel retorne true', () => {
       sinon.stub(salesModel, 'productIdExists').resolves(true);
-      expect(salesService.checkIfExists(1)).to.eventually.be.undefined;
+      expect(salesService.checkIfProductIdExists(1)).to.eventually.be.undefined;
     });
   });
 });

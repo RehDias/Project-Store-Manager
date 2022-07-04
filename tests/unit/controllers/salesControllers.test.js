@@ -18,15 +18,15 @@ describe('Testa o arquivo salesController', () => {
       expect(salesController.add({}, {})).to.eventually.be.rejected;
     });
 
-    it('A função deve disparar um erro caso a função get do checkIfExists dispare', () => {
+    it('A função deve disparar um erro caso a função get do checkIfProductIdExists dispare', () => {
       sinon.stub(salesService, 'validateItems').resolves();
-      sinon.stub(salesService, 'checkIfExists').rejects();
+      sinon.stub(salesService, 'checkIfProductIdExists').rejects();
       expect(salesController.add({}, {})).to.eventually.be.rejected;
     });
 
     it('A função deve disparar um erro caso a função add do salesService dispare', () => {
       sinon.stub(salesService, 'validateItems').resolves();
-      sinon.stub(salesService, 'checkIfExists').rejects();
+      sinon.stub(salesService, 'checkIfProductIdExists').rejects();
       sinon.stub(salesService, 'add').rejects();
       expect(salesController.add({}, {})).to.eventually.be.rejected;
     });
@@ -56,7 +56,7 @@ describe('Testa o arquivo salesController', () => {
       };
 
       sinon.stub(salesService, 'validateItems').resolves(items);
-      sinon.stub(salesService, 'checkIfExists').resolves(true);
+      sinon.stub(salesService, 'checkIfProductIdExists').resolves(true);
       sinon.stub(salesService, 'add').resolves({ items, id: 3});
       await salesController.add(items, res);
       expect(res.status.getCall(0).args[0]).to.equal(201);

@@ -12,6 +12,10 @@ const salesService = {
       .label('quantity'),
   }))),
 
+  validateId: validateSchema(Joi.object({
+    id: Joi.number().integer().positive(),
+  }).required()),
+
   async add(body) {
     const id = await salesModel.addIntoSales();
     await salesModel.addIntoSalesProducts(body, id);
@@ -19,9 +23,24 @@ const salesService = {
     return { items, id };
   },
 
-  async checkIfExists(body) {
+  async checkIfProductIdExists(body) {
     const exist = await salesModel.productIdExists(body);
     if (!exist) throw new NotFoundError('Product not found');
+  },
+
+  async listaAll() {
+    const sales = await salesModel.listaAll();
+    return sales;
+  },
+
+  async getSalesById(id) {
+    const sales = await salesModel.getSalesById(id);
+    return sales;
+  },
+
+  async checkIfSalesExists(id) {
+    const exists = await salesModel.salesExists(id);
+    if (!exists) throw new NotFoundError('Sale not found');
   },
 };
 

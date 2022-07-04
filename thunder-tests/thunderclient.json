@@ -64,5 +64,33 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "11a2f32c-0ef3-46bb-a265-171b00f99cc9",
+    "colId": "7d9326f5-b900-4f1f-a706-acbf35d44034",
+    "containerId": "2ab31048-90b0-4096-bbb2-e16434c97ca6",
+    "name": "listall",
+    "url": "localhost:3000/sales",
+    "method": "GET",
+    "sortNum": 60000,
+    "created": "2022-07-04T18:27:06.569Z",
+    "modified": "2022-07-04T18:29:11.819Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "b0587c0b-4615-4046-81a4-baa73807a62a",
+    "colId": "7d9326f5-b900-4f1f-a706-acbf35d44034",
+    "containerId": "2ab31048-90b0-4096-bbb2-e16434c97ca6",
+    "name": "getSalesById",
+    "url": "localhost:3000/sales/1",
+    "method": "GET",
+    "sortNum": 70000,
+    "created": "2022-07-04T18:27:22.652Z",
+    "modified": "2022-07-04T18:29:22.834Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

@@ -11,12 +11,13 @@ const errorCode = (message) => {
     return code;
   }
 
-  switch (message) { 
-    case 'Product not found':
-      code = 404;
-      return code;
-    default: code = 400; return code;
+  if (message.includes('not found')) {
+    code = 404;
+    return code;
   }
+
+  code = 400;
+  return code;
 };
 
 module.exports = { validateSchema, errorCode };
