@@ -37,6 +37,10 @@ const productsService = {
   async edit(id, body) {
     await productsModel.edit(id, body);
   },
+
+  async remove(id) {
+    await productsModel.remove(id);
+  },
 };
 
 module.exports = productsService;
