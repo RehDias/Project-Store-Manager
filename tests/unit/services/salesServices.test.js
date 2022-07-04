@@ -92,4 +92,16 @@ describe('Testa o arquivo salesService', () => {
       expect(salesService.checkIfSalesExists(1)).to.eventually.be.undefined;
     });
   });
+
+  describe('Testa a função remove', () => {
+    it('A função deve disparar um erro caso a função salesModel.remove dispare', () => {
+      sinon.stub(salesModel, 'remove').rejects();
+      expect(salesService.remove(0)).to.eventually.be.rejected;
+    });
+
+    it('A função remove o produto do banco de dados se tudo dê certo', () => {
+      sinon.stub(salesModel, 'remove').resolves();
+      expect(salesService.remove(1)).to.eventually.be.ok;
+    });
+  });
 });

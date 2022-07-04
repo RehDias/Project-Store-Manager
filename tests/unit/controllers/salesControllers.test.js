@@ -136,4 +136,34 @@ describe('Testa o arquivo salesController', () => {
       expect(res.json.getCall(0).args[0]).to.deep.equal(sales);
     });
   });
+
+  describe('Testa a função remove', () => {
+    it('A função deve disparar um erro caso a função validateId dispare', () => {
+      sinon.stub(salesService, 'validateId').rejects();
+      expect(salesController.remove(0)).to.eventually.be.rejected;
+    });
+
+    it('A função deve dispara um erro caso a função checkIfSalesExists dispare', () => {
+      sinon.stub(salesService, 'validateId').resolves();
+      sinon.stub(salesService, 'checkIfSalesExists').rejects();
+      expect(salesController.remove(0)).to.eventually.be.rejected;
+    });
+
+    it('A função deve dispara um erro caso a função salesService.remove dispare', () => {
+      sinon.stub(salesService, 'validateId').resolves();
+      sinon.stub(salesService, 'checkIfSalesExists').resolves();
+      sinon.stub(salesService, 'remove').rejects();
+      expect(salesController.remove(0)).to.eventually.be.rejected;
+    });
+
+    it('A função deve retornar o status 204', async () => {
+      const res = response();
+
+      sinon.stub(salesService, 'validateId').resolves({ id: 1 });
+      sinon.stub(salesService, 'checkIfSalesExists').resolves(true);
+      sinon.stub(salesService, 'remove').resolves({ id: 1 });
+      await salesController.remove(1, res);
+      expect(res.sendStatus.getCall(0).args[0]).to.equal(204);
+    });
+  });
 });

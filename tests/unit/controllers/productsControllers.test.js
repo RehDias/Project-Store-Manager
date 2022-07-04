@@ -140,14 +140,14 @@ describe('Testa o arquivo productsControllers', () => {
     it('A função deve dispara um erro caso a função checkIfExists dispare', () => {
       sinon.stub(productsService, 'validateId').resolves();
       sinon.stub(productsService, 'checkIfExists').rejects();
-      expect(productsController.edit(0)).to.eventually.be.rejected;
+      expect(productsController.remove(0)).to.eventually.be.rejected;
     });
 
     it('A função deve dispara um erro caso a função productsService.remove dispare', () => {
       sinon.stub(productsService, 'validateId').resolves();
       sinon.stub(productsService, 'checkIfExists').resolves();
       sinon.stub(productsService, 'remove').rejects();
-      expect(productsController.edit(0)).to.eventually.be.rejected;
+      expect(productsController.remove(0)).to.eventually.be.rejected;
     });
 
     it('A função deve retornar o status 204', async () => {

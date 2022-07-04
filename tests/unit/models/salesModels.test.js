@@ -100,4 +100,16 @@ describe('Testa o arquivo salesModel', () => {
       expect(salesModel.salesExists(1)).to.eventually.be.true;
     });
   });
+
+  describe('Testa a função remove', () => {
+    it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
+      sinon.stub(connect, 'query').rejects();
+      expect(salesModel.remove(0)).to.eventually.be.rejected;
+    });
+
+    it('A função remove o produto do banco de dados se tudo dê certo', () => {
+      sinon.stub(connect, 'query').resolves();
+      expect(salesModel.remove(1)).to.eventually.be.ok;
+    });
+  });
 });
