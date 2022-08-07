@@ -14,77 +14,77 @@ describe('Testa o arquivo productsModel', () => {
   describe('Testa a função listAll', () => {
     it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
       sinon.stub(connect, 'query').rejects();
-      expect(productsModel.listAll()).to.eventually.be.rejected;
+      return expect(productsModel.listAll()).to.eventually.be.rejected;
     });
 
     it('A função deve retornar uma lista vazia caso tenha nada no banco de dados', () => {
       sinon.stub(connect, 'query').resolves([]);
-      expect(productsModel.listAll()).to.eventually.be.undefined;
+      return expect(productsModel.listAll()).to.eventually.be.undefined;
     });
 
     it('A função deve retornar um objeto com todos os itens da lista', () => {
-      sinon.stub(connect, 'query').resolves([{}, {}, {}]);
-      expect(productsModel.listAll()).to.eventually.deep.equal([{}, {}, {}]);
+      sinon.stub(connect, 'query').resolves({});
+      return expect(productsModel.listAll()).to.eventually.deep.equal([{}]);
     });
   });
 
   describe('Testa a função get', () => {
     it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
       sinon.stub(connect, 'query').rejects();
-      expect(productsModel.get(6)).to.eventually.be.rejected;
+      return expect(productsModel.get(6)).to.eventually.be.rejected;
     });
 
     it('A função deve retornar um item caso o passe um id válido', () => {
-      sinon.stub(connect, 'query').resolves([{ "id": 1, "name": "Martelo de Thor" }]);
-      expect(productsModel.get(1)).to.eventually.deep.equal([{ "id": 1, "name": "Martelo de Thor" }]);
+      sinon.stub(connect, 'query').resolves();
+      return expect(productsModel.get(1)).to.eventually.undefined;
     });
   });
 
   describe('Testa a função exists', () => {
     it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
       sinon.stub(connect, 'query').rejects();
-      expect(productsModel.exists(6)).to.eventually.be.rejected;
+      return expect(productsModel.exists(6)).to.eventually.be.rejected;
     });
 
     it('A função deve retornar um booleano', () => {
       sinon.stub(connect, 'query').resolves(true);
-      expect(productsModel.exists(1)).to.eventually.be.true;
+      expect(productsModel.exists(1)).to.be.true;
     });
   });
 
   describe('Testa a função add', () => {
     it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
       sinon.stub(connect, 'query').rejects();
-      expect(productsModel.add({})).to.eventually.be.rejected;
+      return expect(productsModel.add({})).to.eventually.be.rejected;
     });
 
     it('A função deve retornar o id caso sucesso ao adicionar novo produto', () => {
       sinon.stub(connect, 'query').resolves([{ insertId: 5 }]);
-      expect(productsModel.add({})).to.eventually.equal(5);
+      return expect(productsModel.add({})).to.eventually.equal(5);
     });
   });
 
   describe('Testa a função edit', () => {
     it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
       sinon.stub(connect, 'query').rejects();
-      expect(productsModel.edit({})).to.eventually.be.rejected;
+      return expect(productsModel.edit({})).to.eventually.be.rejected;
     });
 
     it('A função altera no banco de dados se tudo dê certo', () => {
       sinon.stub(connect, 'query').resolves();
-      expect(productsModel.edit({})).to.eventually.be.undefined;
+      return expect(productsModel.edit({})).to.eventually.be.undefined;
     });
   });
 
   describe('Testa a função remove', () => {
     it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
       sinon.stub(connect, 'query').rejects();
-      expect(productsModel.remove(0)).to.eventually.be.rejected;
+      return expect(productsModel.remove(0)).to.eventually.be.rejected;
     });
 
     it('A função remove o produto do banco de dados se tudo dê certo', () => {
       sinon.stub(connect, 'query').resolves();
-      expect(productsModel.remove(1)).to.eventually.be.ok;
+      return expect(productsModel.remove(1)).to.eventually.be.truthy;
     });
   });
 });

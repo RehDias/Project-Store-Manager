@@ -16,12 +16,12 @@ describe('Testa o arquivo helpers', () => {
   describe('Testa a função validateSchema', () => {
     it('A função deve disparar um erro caso o joi dispare um erro', () => {
       sinon.stub(schema, 'validateAsync').rejects();
-      expect(validateSchema(schema)()).to.eventually.be.rejected;
+      return expect(validateSchema(schema)()).to.eventually.be.rejected;
     });
 
     it('A função deve retorna um resultado em caso de sucesso', () => {
       sinon.stub(schema, 'validateAsync').resolves({ id: 1 });
-      expect(validateSchema(schema)()).to.eventually.deep.equal({ id: 1 });
+      return expect(validateSchema(schema)()).to.eventually.deep.equal({ id: 1 });
     });
   });
 

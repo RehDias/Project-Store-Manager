@@ -15,20 +15,20 @@ describe('Testa o arquivo salesController', () => {
   describe('Testa a função add', () => {
     it('A função deve disparar um erro caso a função validateItems do salesService dispare', () => {
       sinon.stub(salesService, 'validateItems').rejects();
-      expect(salesController.add({}, {})).to.eventually.be.rejected;
+      return expect(salesController.add({}, {})).to.eventually.be.rejected;
     });
 
     it('A função deve disparar um erro caso a função get do checkIfProductIdExists dispare', () => {
       sinon.stub(salesService, 'validateItems').resolves();
       sinon.stub(salesService, 'checkIfProductIdExists').rejects();
-      expect(salesController.add({}, {})).to.eventually.be.rejected;
+      return expect(salesController.add({}, {})).to.eventually.be.rejected;
     });
 
     it('A função deve disparar um erro caso a função add do salesService dispare', () => {
       sinon.stub(salesService, 'validateItems').resolves();
       sinon.stub(salesService, 'checkIfProductIdExists').rejects();
       sinon.stub(salesService, 'add').rejects();
-      expect(salesController.add({}, {})).to.eventually.be.rejected;
+      return expect(salesController.add({}, {})).to.eventually.be.rejected;
     });
 
     it('A função deve retornar o status 201 e o json o id e a lista dos produtos vendidos', async () => {
@@ -67,7 +67,7 @@ describe('Testa o arquivo salesController', () => {
   describe('Testa a função listAll', () => {
     it('A função deve disparar um erro caso a função listAll do salesService dispare', () => {
       sinon.stub(salesService, 'listAll').rejects();
-      expect(salesController.listAll()).to.eventually.be.rejected;
+      return expect(salesController.listAll()).to.eventually.be.rejected;
     });
 
     it('A função deve retornar o status 200 e o json com a lista de produtos vendidos', async () => {
@@ -97,20 +97,20 @@ describe('Testa o arquivo salesController', () => {
   describe('Testa a função getSalesById', () => {
     it('A função deve disparar um erro caso a função validId do salesService dispare', () => {
       sinon.stub(salesService, 'validateId').rejects();
-      expect(salesController.getSalesById(0)).to.eventually.be.rejected;
+      return expect(salesController.getSalesById(0)).to.eventually.be.rejected;
     });
 
     it('A função deve disparar um erro caso a função checkIfSalesExists do salesService dispare', () => {
       sinon.stub(salesService, 'validateId').resolves();
       sinon.stub(salesService, 'checkIfSalesExists').rejects();
-      expect(salesController.getSalesById(0)).to.eventually.be.rejected;
+      return expect(salesController.getSalesById(0)).to.eventually.be.rejected;
     });
 
     it('A função deve disparar um erro caso a função getSalesById do salesService dispare', () => {
       sinon.stub(salesService, 'validateId').resolves();
       sinon.stub(salesService, 'checkIfSalesExists').resolves(true);
       sinon.stub(salesService, 'getSalesById').rejects();
-      expect(salesController.getSalesById(0)).to.eventually.be.rejected;
+      return expect(salesController.getSalesById(0)).to.eventually.be.rejected;
     });
 
     it('A função deve retornar o status 200 e o json com os produtos vendidos', async () => {
@@ -140,20 +140,20 @@ describe('Testa o arquivo salesController', () => {
   describe('Testa a função remove', () => {
     it('A função deve disparar um erro caso a função validateId dispare', () => {
       sinon.stub(salesService, 'validateId').rejects();
-      expect(salesController.remove(0)).to.eventually.be.rejected;
+      return expect(salesController.remove(0)).to.eventually.be.rejected;
     });
 
     it('A função deve dispara um erro caso a função checkIfSalesExists dispare', () => {
       sinon.stub(salesService, 'validateId').resolves();
       sinon.stub(salesService, 'checkIfSalesExists').rejects();
-      expect(salesController.remove(0)).to.eventually.be.rejected;
+      return expect(salesController.remove(0)).to.eventually.be.rejected;
     });
 
     it('A função deve dispara um erro caso a função salesService.remove dispare', () => {
       sinon.stub(salesService, 'validateId').resolves();
       sinon.stub(salesService, 'checkIfSalesExists').resolves();
       sinon.stub(salesService, 'remove').rejects();
-      expect(salesController.remove(0)).to.eventually.be.rejected;
+      return expect(salesController.remove(0)).to.eventually.be.rejected;
     });
 
     it('A função deve retornar o status 204', async () => {

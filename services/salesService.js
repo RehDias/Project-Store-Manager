@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const salesModel = require('../models/salesModel');
 const { validateSchema } = require('./helpers');
-const NotFoundError = require('../middlewares/notFoundErrors');
+const NotFoundError = require('../middlewares/NotFoundError');
 
 const salesService = {
   validateItems: validateSchema(Joi.array().items(Joi.object({
@@ -10,7 +10,7 @@ const salesService = {
     quantity: Joi.number().min(1).integer().positive()
       .required()
       .label('quantity'),
-  }))),
+  })).required()),
 
   validateId: validateSchema(Joi.object({
     id: Joi.number().integer().positive(),
@@ -26,6 +26,13 @@ const salesService = {
   async checkIfProductIdExists(body) {
     const exist = await salesModel.productIdExists(body);
     if (!exist) throw new NotFoundError('Product not found');
+  },
+
+  async checkIfSalesProductIdExists(sales) {
+    const exist = await Promise.all(
+      sales.map(({ productId }) => salesModel.salesProductIdExists(productId)),
+    );
+    if (exist.includes(false)) throw new NotFoundError('Product not found');
   },
 
   async listAll() {
@@ -45,6 +52,10 @@ const salesService = {
 
   async remove(id) {
     await salesModel.remove(id);
+  },
+
+  async edit(id, sales) {
+    await salesModel.edit(id, sales);
   },
 };
 

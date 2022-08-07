@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const productsModel = require('../models/productsModel');
-const NotFoundError = require('../middlewares/notFoundErrors');
+const NotFoundError = require('../middlewares/NotFoundError');
 const { validateSchema } = require('./helpers');
 
 const productsService = {

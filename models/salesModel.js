@@ -27,6 +27,12 @@ const salesModel = {
     return !!product;
   },
 
+  async salesProductIdExists(sales) {
+    const sqlQuery = 'SELECT 1 FROM StoreManager.sales_products WHERE product_id = ?;';
+    const [[product]] = await connect.query(sqlQuery, [sales]);
+    return !!product;
+  },
+
   async listAll() {
     const sqlQuery = `SELECT sp.sale_id AS saleId, s.date, sp.product_id AS productId, sp.quantity
     FROM StoreManager.sales_products AS sp
@@ -54,6 +60,13 @@ const salesModel = {
   async remove(id) {
     const sqlQuery = 'DELETE FROM StoreManager.sales_products WHERE sale_id = ?;';
     await connect.query(sqlQuery, [id]);
+  },
+
+  async edit(id, sales) {
+    const sqlQuery = `UPDATE StoreManager.sales_products 
+    SET quantity = ?
+    WHERE sale_id = ? AND product_id = ?`;
+    await connect.query(sqlQuery, [sales.quantity, id, sales.productId]);
   },
 };
 
