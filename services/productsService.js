@@ -41,6 +41,11 @@ const productsService = {
   async remove(id) {
     await productsModel.remove(id);
   },
+
+  async search(q) {
+    const result = await productsModel.search(q);
+    return result;
+  },
 };
 
 module.exports = productsService;

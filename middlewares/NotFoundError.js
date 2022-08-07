@@ -3,6 +3,6 @@ class NotFoundError extends Error {
     super(message);
     this.name = 'NotFoundError';
   }
-};
+}
 
 module.exports = NotFoundError;

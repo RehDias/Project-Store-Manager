@@ -45,7 +45,8 @@ const salesController = {
     const response = {
       saleId: id,
       itemsUpdated: validated,
-    }
+    };
+    
     res.status(200).json(response);
   },
 };

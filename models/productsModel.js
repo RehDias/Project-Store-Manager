@@ -34,6 +34,13 @@ const productsModel = {
     const sqlQuery = 'DELETE FROM StoreManager.products WHERE id = ?;';
     await connect.query(sqlQuery, [id]);
   },
+
+  async search(q) {
+    const search = `%${Object.values(q)}%`;
+    const sqlQuery = 'SELECT * FROM StoreManager.products WHERE name LIKE ?';
+    const [result] = await connect.query(sqlQuery, [search]);
+    return result;
+  },
 };
 
 module.exports = productsModel;

@@ -36,6 +36,16 @@ const productsController = {
     await productsService.remove(id);
     res.sendStatus(204);
   },
+
+  async search(req, res) {
+    if (req.query === '') {
+      const list = await productsService.listAll();
+      return res.json(list);
+    }
+    
+    const search = await productsService.search(req.query);
+    res.json(search);
+  },
 };
 
 module.exports = productsController;
