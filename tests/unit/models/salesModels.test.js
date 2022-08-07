@@ -38,7 +38,7 @@ describe('Testa o arquivo salesModel', () => {
 
 
     it('A função deve retornar uma lista', () => {
-      sinon.stub(connect, 'query').resolves([]);
+      sinon.stub(connect, 'query').resolves([[]]);
       return expect(salesModel.getProductsSold(1)).to.eventually.deep.equal([]);
     });
   });
@@ -50,13 +50,13 @@ describe('Testa o arquivo salesModel', () => {
     });
 
     it('A função deve retornar false caso o banco de dados não ache o produto', () => {
-      sinon.stub(connect, 'query').resolves(false);
-      return expect(salesModel.productIdExists(9)).to.eventually.be.false;
+      sinon.stub(connect, 'query').resolves([[]]);
+      return expect(salesModel.productIdExists(0)).to.eventually.equal(false);
     });
 
     it('A função deve retornar true caso o banco de dados tenha sucesso', () => {
-      sinon.stub(connect, 'query').resolves(true);
-      return expect(salesModel.productIdExists(1)).to.eventually.be.true;
+      sinon.stub(connect, 'query').resolves([[{ 1: 1 }]]);
+      return expect(salesModel.productIdExists(1)).to.eventually.equal(true);
     });
   });
 
@@ -72,7 +72,7 @@ describe('Testa o arquivo salesModel', () => {
     });
 
     it('A função deve retornar um objeto com todos os itens da lista', () => {
-      sinon.stub(connect, 'query').resolves([{}, {}, {}]);
+      sinon.stub(connect, 'query').resolves([[{}, {}, {}]]);
       return expect(salesModel.listAll()).to.eventually.deep.equal([{}, {}, {}]);
     });
   });
@@ -84,7 +84,7 @@ describe('Testa o arquivo salesModel', () => {
     });
 
     it('A função deve retornar os produtos vendidos caso o passe um id válido', () => {
-      sinon.stub(connect, 'query').resolves([{}, {}]);
+      sinon.stub(connect, 'query').resolves([[{}, {}]]);
       return expect(salesModel.getSalesById(1)).to.eventually.deep.equal([{}, {}]);
     });
   });
@@ -96,8 +96,8 @@ describe('Testa o arquivo salesModel', () => {
     });
 
     it('A função deve retornar um booleano', () => {
-      sinon.stub(connect, 'query').resolves(true);
-      return expect(salesModel.salesExists(1)).to.eventually.be.true;
+      sinon.stub(connect, 'query').resolves([[{ 1: 1 }]]);
+      return expect(salesModel.salesExists(1)).to.eventually.equal(true);
     });
   });
 
@@ -109,7 +109,7 @@ describe('Testa o arquivo salesModel', () => {
 
     it('A função remove o produto do banco de dados se tudo dê certo', () => {
       sinon.stub(connect, 'query').resolves();
-      return expect(salesModel.remove(1)).to.eventually.be.ok;
+      return expect(salesModel.remove(1)).to.eventually.be.undefined;
     });
   });
 });

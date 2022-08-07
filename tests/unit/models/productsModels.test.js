@@ -23,8 +23,10 @@ describe('Testa o arquivo productsModel', () => {
     });
 
     it('A função deve retornar um objeto com todos os itens da lista', () => {
-      sinon.stub(connect, 'query').resolves({});
-      return expect(productsModel.listAll()).to.eventually.deep.equal([{}]);
+      const result = [{ id: 1, name: 'Martelo de Thor' },
+        { id: 2, name: 'Traje de encolhimento' }];
+      sinon.stub(connect, 'query').resolves([result]);
+      return expect(productsModel.listAll()).to.eventually.deep.equal(result);
     });
   });
 
@@ -35,8 +37,9 @@ describe('Testa o arquivo productsModel', () => {
     });
 
     it('A função deve retornar um item caso o passe um id válido', () => {
-      sinon.stub(connect, 'query').resolves();
-      return expect(productsModel.get(1)).to.eventually.undefined;
+      const result = [{ id: 1, name: 'Martelo de Thor' }];
+      sinon.stub(connect, 'query').resolves([[result]]);
+      return expect(productsModel.get(1)).to.eventually.deep.equal(result);
     });
   });
 
@@ -47,8 +50,8 @@ describe('Testa o arquivo productsModel', () => {
     });
 
     it('A função deve retornar um booleano', () => {
-      sinon.stub(connect, 'query').resolves(true);
-      expect(productsModel.exists(1)).to.be.true;
+      sinon.stub(connect, 'query').resolves([[{ 1: 1 }]]);
+      return expect(productsModel.exists(1)).to.eventually.equal(true);
     });
   });
 
@@ -84,7 +87,7 @@ describe('Testa o arquivo productsModel', () => {
 
     it('A função remove o produto do banco de dados se tudo dê certo', () => {
       sinon.stub(connect, 'query').resolves();
-      return expect(productsModel.remove(1)).to.eventually.be.truthy;
+      return expect(productsModel.remove(1)).to.eventually.be.undefined;
     });
   });
 });

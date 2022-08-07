@@ -7,7 +7,7 @@ const { expect } = chai;
 
 const salesModel = require('../../../models/salesModel');
 const salesService = require('../../../services/salesService');
-const NotFoundError = require('../../../middlewares/notFoundErrors');
+const NotFoundError = require('../../../middlewares/NotFoundError');
 
 describe('Testa o arquivo salesService', () => {
   beforeEach(sinon.restore);
@@ -29,9 +29,11 @@ describe('Testa o arquivo salesService', () => {
     });
 
     it('A função deve retornar o id inserido e a lista caso o salesModel dê certo', () => {
-      sinon.stub(salesModel, 'addIntoSales').resolves(2);
-      sinon.stub(salesModel, 'getProductsSold').resolves([]);
-      return expect(salesService.add([], 2)).to.eventually.deep.equal([], 2);
+      const result = [{ productId: 1, quantity: 1 }];
+      const obj = { items: undefined, id: 1 };
+      sinon.stub(salesModel, 'addIntoSales').resolves(1);
+      sinon.stub(salesModel, 'getProductsSold').resolves();
+      return expect(salesService.add(result)).to.eventually.deep.equal(obj);
     });
   });
 
@@ -101,7 +103,7 @@ describe('Testa o arquivo salesService', () => {
 
     it('A função remove o produto do banco de dados se tudo dê certo', () => {
       sinon.stub(salesModel, 'remove').resolves();
-      return expect(salesService.remove(1)).to.eventually.be.ok;
+      return expect(salesService.remove(1)).to.eventually.be.undefined;
     });
   });
 });

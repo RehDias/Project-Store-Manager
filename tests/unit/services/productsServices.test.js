@@ -7,7 +7,7 @@ const { expect } = chai;
 
 const productsModel = require('../../../models/productsModel');
 const productsService = require('../../../services/productsService');
-const NotFoundError = require('../../../middlewares/notFoundErrors');
+const NotFoundError = require('../../../middlewares/NotFoundError');
 
 describe('Testa o arquivo productsServices', () => {
   beforeEach(sinon.restore);
@@ -85,7 +85,7 @@ describe('Testa o arquivo productsServices', () => {
 
     it('A função remove o produto do banco de dados se tudo dê certo', () => {
       sinon.stub(productsModel, 'remove').resolves();
-      return expect(productsService.remove(1)).to.eventually.be.ok;
+      return expect(productsService.remove(1)).to.eventually.be.undefined;
     });
   });
 });
