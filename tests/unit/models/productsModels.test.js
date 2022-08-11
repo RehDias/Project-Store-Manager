@@ -90,4 +90,16 @@ describe('Testa o arquivo productsModel', () => {
       return expect(productsModel.remove(1)).to.eventually.be.undefined;
     });
   });
+
+  describe('Testa a função search', () => {
+    it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
+      sinon.stub(connect, 'query').rejects();
+      return expect(productsModel.search(0)).to.eventually.be.rejected;
+    });
+
+    it('A função retorna o resultado da busca efetuada pelo req.query', () => {
+      sinon.stub(connect, 'query').resolves([[{}]]);
+      return expect(productsModel.search([{}])).to.eventually.be.deep.equal([{}]);
+    });
+  });
 });

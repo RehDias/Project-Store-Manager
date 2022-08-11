@@ -60,6 +60,23 @@ describe('Testa o arquivo salesModel', () => {
     });
   });
 
+   describe('Testa a função salesProductIdExists', () => {
+    it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
+      sinon.stub(connect, 'query').rejects();
+      return expect(salesModel.salesProductIdExists(9)).to.eventually.be.rejected;
+    });
+
+    it('A função deve retornar false caso o banco de dados não ache o produto', () => {
+      sinon.stub(connect, 'query').resolves([[]]);
+      return expect(salesModel.salesProductIdExists(0)).to.eventually.equal(false);
+    });
+
+    it('A função deve retornar true caso o banco de dados tenha sucesso', () => {
+      sinon.stub(connect, 'query').resolves([[{ 1: 1 }]]);
+      return expect(salesModel.salesProductIdExists(1)).to.eventually.equal(true);
+    });
+  });
+
   describe('Testa a função listaAll', () => {
     it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
       sinon.stub(connect, 'query').rejects();
@@ -110,6 +127,18 @@ describe('Testa o arquivo salesModel', () => {
     it('A função remove o produto do banco de dados se tudo dê certo', () => {
       sinon.stub(connect, 'query').resolves();
       return expect(salesModel.remove(1)).to.eventually.be.undefined;
+    });
+  });
+
+  describe('Testa a função edit', () => {
+    it('A função deve disparar um erro caso o banco de dados dispare um erro', () => {
+      sinon.stub(connect, 'query').rejects();
+      return expect(salesModel.edit()).to.eventually.be.rejected;
+    });
+
+    it('A função deve atualizar a venda no banco de dados', () => {
+      sinon.stub(connect, 'query').resolves();
+      return expect(salesModel.edit(1, {})).to.eventually.be.undefined;
     });
   });
 });

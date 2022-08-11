@@ -38,7 +38,7 @@ const productsController = {
   },
 
   async search(req, res) {
-    if (req.query === '') {
+    if (req.query === undefined) {
       const list = await productsService.listAll();
       return res.json(list);
     }

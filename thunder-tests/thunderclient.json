@@ -150,13 +150,19 @@
     "colId": "7d9326f5-b900-4f1f-a706-acbf35d44034",
     "containerId": "d114423f-f150-479f-83e0-b1be04320470",
     "name": "search",
-    "url": "localhost:3000/products/search",
+    "url": "localhost:3000/products/search?q=Capitão",
     "method": "GET",
     "sortNum": 110000,
     "created": "2022-08-07T19:33:21.490Z",
-    "modified": "2022-08-07T19:41:07.632Z",
+    "modified": "2022-08-08T01:26:54.380Z",
     "headers": [],
-    "params": [],
+    "params": [
+      {
+        "name": "q",
+        "value": "Capitão",
+        "isPath": false
+      }
+    ],
     "tests": []
   }
 ]

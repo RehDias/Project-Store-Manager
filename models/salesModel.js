@@ -13,8 +13,8 @@ const salesModel = {
 
     await Promise.all(
       body.map(({ productId, quantity }) => connect.query(sqlQuery,
-      [id, productId, quantity])),
-    )
+        [id, productId, quantity])),
+    );
   },
 
   async getProductsSold(id) {

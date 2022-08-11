@@ -54,6 +54,23 @@ describe('Testa o arquivo salesService', () => {
     });
   });
 
+  describe('Testa a função checkIfSalesProductIdExists', () => {
+    it('A função deve disparar um erro caso o salesModel dispare um erro', () => {
+      sinon.stub(salesModel, 'salesProductIdExists').rejects();
+      return expect(salesService.checkIfSalesProductIdExists(1)).to.eventually.be.rejected;
+    });
+
+    it('A função deve disparar um erro NotFoundError caso o salesModel retorne false', () => {
+      sinon.stub(salesModel, 'salesProductIdExists').resolves(false);
+      return expect(salesService.checkIfSalesProductIdExists([6, 8])).to.eventually.be.rejectedWith(NotFoundError);
+    });
+
+    it('A função deve resolver caso o salesModel retorne true', () => {
+      sinon.stub(salesModel, 'salesProductIdExists').resolves(true);
+      return expect(salesService.checkIfSalesProductIdExists([1, 2])).to.eventually.be.undefined;
+    });
+  });
+
   describe('Testa a função listAll', () => {
     it('A função deve disparar um erro caso o salesModel dispare um erro', () => {
       sinon.stub(salesModel, 'listAll').rejects();
@@ -104,6 +121,18 @@ describe('Testa o arquivo salesService', () => {
     it('A função remove o produto do banco de dados se tudo dê certo', () => {
       sinon.stub(salesModel, 'remove').resolves();
       return expect(salesService.remove(1)).to.eventually.be.undefined;
+    });
+  });
+
+  describe('Testa a função edit', () => {
+    it('A função deve disparar um erro caso a função salesModel.edit dispare', () => {
+      sinon.stub(salesModel, 'edit').rejects();
+      return expect(salesService.edit(0, {})).to.eventually.be.rejected;
+    });
+
+    it('A função atualiza o produto no banco de dados', () => {
+      sinon.stub(salesModel, 'edit').resolves();
+      return expect(salesService.edit(1, {})).to.eventually.be.undefined;
     });
   });
 });

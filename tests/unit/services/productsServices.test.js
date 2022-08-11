@@ -88,4 +88,16 @@ describe('Testa o arquivo productsServices', () => {
       return expect(productsService.remove(1)).to.eventually.be.undefined;
     });
   });
+
+  describe('Testa a função search', () => {
+    it('A função deve disparar um erro caso a função productsModel.search dispare', () => {
+      sinon.stub(productsModel, 'search').rejects();
+      return expect(productsService.search(0)).to.eventually.be.rejected;
+    });
+
+    it('A função retorna o resultado da busca', () => {
+      sinon.stub(productsModel, 'search').resolves([{}]);
+      return expect(productsService.search('')).to.eventually.deep.equal([{}]);
+    });
+  });
 });

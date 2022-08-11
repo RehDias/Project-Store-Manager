@@ -166,4 +166,77 @@ describe('Testa o arquivo salesController', () => {
       expect(res.sendStatus.getCall(0).args[0]).to.equal(204);
     });
   });
+
+  describe('Testa a função edit', () => {
+    it('A função deve disparar um erro caso a função validateId dispare', () => {
+      sinon.stub(salesService, 'validateId').rejects();
+      return expect(salesController.edit({}, {})).to.eventually.be.rejected;
+    });
+
+    it('A função deve dispara um erro caso a função checkIfSalesExists dispare', () => {
+      sinon.stub(salesService, 'validateId').resolves();
+      sinon.stub(salesService, 'checkIfSalesExists').rejects();
+      return expect(salesController.edit({}, {})).to.eventually.be.rejected;
+    });
+
+    it('A função deve disparar um erro caso a função validateItems dispare', () => {
+      sinon.stub(salesService, 'validateId').resolves();
+      sinon.stub(salesService, 'checkIfSalesExists').resolves();
+      sinon.stub(salesService, 'validateItems').rejects();
+      return expect(salesController.edit({}, {})).to.eventually.be.rejected;
+     });
+    
+    it('A função deve disparar um erro caso a função checkIfSalesProductIdExists dispare', () => {
+      sinon.stub(salesService, 'validateId').resolves();
+      sinon.stub(salesService, 'checkIfSalesExists').resolves();
+      sinon.stub(salesService, 'validateItems').resolves({});
+      sinon.stub(salesService, 'checkIfSalesProductIdExists').rejects();
+      return expect(salesController.edit({}, {})).to.eventually.be.rejected;
+    });
+
+    it('A função deve dispara um erro caso a função salesService.edit dispare', () => {
+      sinon.stub(salesService, 'validateId').resolves();
+      sinon.stub(salesService, 'checkIfSalesExists').resolves(true);
+      sinon.stub(salesService, 'validateItems').resolves({});
+      sinon.stub(salesService, 'checkIfSalesProductIdExists').resolves(true);
+      sinon.stub(salesService, 'edit').rejects();
+      return expect(salesController.edit({}, {})).to.eventually.be.rejected;
+    });
+
+    it('A função deve retornar o status 200 e os items atualizados', async () => {
+      const res = response();
+      const result = {
+        saleId: 1,
+        itemsUpdated: [
+          {
+            "productId": 1,
+            "quantity": 10
+          },
+          {
+            "productId": 2,
+            "quantity": 50
+          }
+        ],
+      };
+      const items = [
+        {
+          "productId": 1,
+          "quantity": 10
+        },
+        {
+          "productId": 2,
+          "quantity": 50
+        }
+      ];    
+
+      sinon.stub(salesService, 'validateId').resolves({ id: 1 });
+      sinon.stub(salesService, 'checkIfSalesExists').resolves(true);
+      sinon.stub(salesService, 'validateItems').resolves(items);
+      sinon.stub(salesService, 'checkIfSalesProductIdExists').resolves(true);
+      sinon.stub(salesService, 'edit').resolves();
+      await salesController.edit({}, res);
+      expect(res.status.getCall(0).args[0]).to.equal(200);
+      expect(res.json.getCall(0).args[0]).to.deep.equal(result);
+    });
+  });
 });

@@ -11,6 +11,7 @@ const response = require('./helpers');
 
 describe('Testa o arquivo productsControllers', () => { 
   beforeEach(sinon.restore);
+  const urlProducts = `http://localhost:${process.env.PORT}/products`;
 
   describe('Testa a função listaAll', () => { 
     it('A função deve disparar um erro caso a função listAll do productsService dispare', () => {
