@@ -1,16 +1,13 @@
-# 🚧 README em construção 🚧
+<h1>Projeto Store Manager</h1>
 
-<!-- Olá, Tryber!
+<h2>Sobre</h2>
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
+<p>Neste projeto cria-se uma API RESTful utilizando a arquitetura MSC (model, service e controller), onde é construido um sistema de gerenciamento de produtos, podendo realizar o CRUD (criar, ler, atualizar e remover) dos produtos e das vendas.</p>
 
-É essencial que você preencha esse documento por conta própria, ok?
+<h3>Tecnologias utilizadas</h3>
 
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
+<p>Essa aplicação é em Node.js utilizando o banco de dados MySQl para gestão dos dados, a biblioteca Joi para a validação, Docker e Express.</p>
 
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
+<h3>Aplicação</h3>
 
--->
+![2022-08-15_22-08-13](https://user-images.githubusercontent.com/91297277/184774230-71e3aaa9-e283-4ae3-9d14-59fc6dc7c54e.gif)
