@@ -2,11 +2,11 @@
 
 <h2>Sobre</h2>
 
-<p>Neste projeto cria-se uma API RESTful utilizando a arquitetura MSC (model, service e controller), onde é construido um sistema de gerenciamento de produtos, podendo realizar o CRUD (criar, ler, atualizar e remover) dos produtos e das vendas.</p>
+<p>Neste projeto cria-se uma API RESTful utilizando a arquitetura MSC (model, service e controller), onde é construido um sistema de gerenciamento de produtos, podendo realizar o CRUD (criar, ler, atualizar e remover) dos produtos e das vendas. É realizado testes unitários.</p>
 
 <h3>Tecnologias utilizadas</h3>
 
-<p>Essa aplicação é em Node.js utilizando o banco de dados MySQl para gestão dos dados, a biblioteca Joi para a validação, Docker e Express.</p>
+<p>Essa aplicação é em Node.js utilizando o banco de dados MySQl para gestão dos dados, a biblioteca Joi para a validação, Docker e Express. Mocha, Chai e Sinon para a realização dos testes.</p>
 
 <h3>Aplicação</h3>
 
