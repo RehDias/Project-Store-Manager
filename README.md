@@ -1,4 +1,4 @@
-# Store Manager
+# Store Manager <img src="https://github.com/user-attachments/assets/1bb74fe2-1233-4581-bc94-5aac734f1c3f" alt="image" width="60"/>
 
 ## Sobre
 
